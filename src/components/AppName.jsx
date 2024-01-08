@@ -1,7 +1,7 @@
-function AppName() {
-    return <h1>TODO LIST hello</h1>;
-    
-  }
-  
+import styles from "./AppName.module.css";
 
-  export default AppName;
+function AppName() {
+  return <h1 className={styles.todoHeading}>TODO App</h1>;
+}
+
+export default AppName;
