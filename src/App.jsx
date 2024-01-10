@@ -9,11 +9,26 @@ function App() {
   const [todoItems, setTodoItems] = useState([]);
 
   const handleNewItem = (itemName, itemDueDate) => {
-    const newTodoItems = [
-      ...todoItems,
+    // setTodoItems((currValue) => {
+    //   const newTodoItems = [
+    //     ...currValue,
+
+    //     //Example spread operator
+    //     // var arr1 =[ 1,2]
+    //     // arr1
+    //     // (2)[1,2]
+    //     // arr3= [...arr1, 3] //spread operator for value
+    //     // (3) [1,2,3]
+
+    //     { name: itemName, dueDate: itemDueDate },
+    //   ];
+    //   return newTodoItems;
+    // });
+
+    setTodoItems((currValue) => [
+      ...currValue,
       { name: itemName, dueDate: itemDueDate },
-    ];
-    setTodoItems(newTodoItems);
+    ]);
   };
 
   const handleDeleteItem = (todoItemName) => {
