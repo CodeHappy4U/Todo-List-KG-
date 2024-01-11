@@ -3,49 +3,41 @@ import AddTodo from "./components/AddTodo";
 import TodoItems from "./components/TodoItems";
 import WelcomeMessage from "./components/WelcomeMessage";
 import "./App.css";
+import { TodoItemsContext } from "./store/todo-items-store";
 import { useState } from "react";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
 
-  const handleNewItem = (itemName, itemDueDate) => {
-    // setTodoItems((currValue) => {
-    //   const newTodoItems = [
-    //     ...currValue,
-
-    //     //Example spread operator
-    //     // var arr1 =[ 1,2]
-    //     // arr1
-    //     // (2)[1,2]
-    //     // arr3= [...arr1, 3] //spread operator for value
-    //     // (3) [1,2,3]
-
-    //     { name: itemName, dueDate: itemDueDate },
-    //   ];
-    //   return newTodoItems;
-    // });
-
-    setTodoItems((currValue) => [
-      ...currValue,
+  const addNewItem = (itemName, itemDueDate) => {
+    const newTodoItems = [
+      ...todoItems,
       { name: itemName, dueDate: itemDueDate },
-    ]);
+    ];
+    setTodoItems(newTodoItems);
   };
 
-  const handleDeleteItem = (todoItemName) => {
+  const deleteItem = (todoItemName) => {
     const newTodoItems = todoItems.filter((item) => item.name !== todoItemName);
     setTodoItems(newTodoItems);
   };
 
   return (
-    <center className="todo-container">
-      <AppName />
-      <AddTodo onNewItem={handleNewItem} />
-      {todoItems.length === 0 && <WelcomeMessage></WelcomeMessage>}
-      <TodoItems
-        todoItems={todoItems}
-        onDeleteClick={handleDeleteItem}
-      ></TodoItems>
-    </center>
+    <TodoItemsContext.Provider
+      value=
+      {{
+        todoItems,
+        addNewItem,
+        deleteItem,
+      }}
+      >
+      <center className="todo-container">
+        <AppName />
+        <AddTodo />
+        <WelcomeMessage></WelcomeMessage>
+        <TodoItems></TodoItems>
+      </center>
+    </TodoItemsContext.Provider>
   );
 }
 
